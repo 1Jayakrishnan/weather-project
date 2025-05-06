@@ -1,6 +1,6 @@
 # 🌤️ Weather App
 
-A simple Django-based web application that allows users to search for a city and view its current weather conditions, including temperature, pressure, humidity, and a brief description. The app also displays a relevant image of the searched city using the Unsplash API.
+A simple Django-based web application that allows users to search for a city and view its current weather conditions, including temperature, pressure, humidity, and a brief description. The app stores each search in the database along with a timestamp.
 
 ## 🔧 Features
 
