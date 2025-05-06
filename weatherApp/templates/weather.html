@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Weather Checker</h1>
+    <form id="weatherForm" method='POST' action="{% url 'index' %}">
+        {% csrf_token %}
+      <input type="text" id="cityInput" placeholder="Enter city name" name='cityname' required />
+      <button type="submit">Get Weather</button>
+    </form>
+    <div id="weatherResult" class="weather-box">
+        {% if weather.city %}
+          <h2>Weather in {{ weather.city }}</h2>
+          <p><strong>Temperature:</strong> {{ weather.temperature }} °C</p>
+          <p><strong>Pressure:</strong> {{ weather.pressure }} hPa</p>
+          <p><strong>Humidity:</strong> {{ weather.humidity }}%</p>
+          <p><strong>Description:</strong> {{ weather.description }}</p>
+          <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Weather Icon">
+        {% elif weather.Error %}
+          <p style="color:red;">{{ weather.Error }}</p>
+        {% endif %}
+      </div>
+      
+  </div>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #e0f7fa;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .container {
+        max-width: 400px;
+        margin: 80px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      
+      input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        background: #00796b;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      button:hover {
+        background: #004d40;
+      }
+      
+      .weather-box {
+        margin-top: 20px;
+        text-align: left;
+      }
+      
+  </style>
+
+  {% comment %} <script>
+    const form = document.getElementById('weatherForm');
+    const resultBox = document.getElementById('weatherResult');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const city = document.getElementById('cityInput').value;
+
+      // Simulated data — replace with API call
+      const weatherData = {
+        temperature: "28°C",
+        pressure: "1013 hPa",
+        humidity: "65%",
+        description: "Clear Sky"
+      };
+
+      resultBox.innerHTML = `
+        <h2>Weather in ${city}</h2>
+        <p><strong>Temperature:</strong> ${weatherData.temperature}</p>
+        <p><strong>Pressure:</strong> ${weatherData.pressure}</p>
+        <p><strong>Humidity:</strong> ${weatherData.humidity}</p>
+        <p><strong>Description:</strong> ${weatherData.description}</p>
+      `;
+    });
+  </script> {% endcomment %}
+</body>
+</html>
